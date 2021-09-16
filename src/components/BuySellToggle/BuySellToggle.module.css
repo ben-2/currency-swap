@@ -1,0 +1,17 @@
+.sphere {
+    height: 27px;
+    width: 27px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 114px;
+}
+
+.arrow {
+    position: absolute;
+    top: 114px;
+    top: 4px;
+    left: 3px;
+    color: #0072ff;
+}
