@@ -1,0 +1,40 @@
+.currencyBox {
+    height: 59px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 9px;
+    background-color: #edf1f2;
+    margin-left: 3vw;
+    margin-right: 3vw;
+    margin-top: 6px;
+}
+
+.currencyWrapper {
+    padding-left: 13px;
+    padding-top: 7px;
+    text-align: left;
+}
+
+.currency {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.02px;
+    display: inline-block;
+    vertical-align: middle;
+    height: 24px;
+}
+
+.downArrow {
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 1px;
+}
+
+.balance {
+    text-align: left;
+    padding-left: 13px;
+    font-size: 12px;
+    line-height: 10px;
+    color: grey;
+}

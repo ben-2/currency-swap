@@ -1,12 +1,30 @@
 import React from 'react';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { CurrencyAccount } from '../../common/types/currency.interface';
+import styles from './CurrencyWrapper.module.css';
 
 interface Props {
-message: string;
+  exchangedCurrency: CurrencyAccount;
+  balance: number;
 }
 
-export const CurrencyWrapper: React.FC<Props> = (props) => {
-  const { message } = props;
+const CurrencyWrapper: React.FC<Props> = (props) => {
+  const { exchangedCurrency, balance } = props;
   return (
-    <div>{message}</div>
+    <div className={styles.currencyBox}>
+      <div>
+        <div className={styles.currencyWrapper}>
+          <div className={styles.currency}>{exchangedCurrency}</div>
+          <div className={styles.downArrow}><KeyboardArrowDownIcon /></div>
+        </div>
+        <div className={styles.balance}>
+          Balance :
+          {' '}
+          {balance}
+        </div>
+      </div>
+    </div>
   );
 };
+
+export default CurrencyWrapper;

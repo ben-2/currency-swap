@@ -1,7 +1,6 @@
 import React from 'react';
+import { CurrencyAccount } from '../../common/types/currency.interface';
 import styles from './Title.module.css';
-
-type CurrencyAccount = 'USD' | 'EUR' | 'GBP';
 
 type TitleProps = {
     operation: 'Buy' | 'Sell';
