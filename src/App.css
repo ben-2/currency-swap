@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: Basier Circle;
 }
 
 .App-logo {
@@ -35,4 +36,11 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+@font-face {
+  font-family: 'Basier Circle';
+  src: local('MyFont'), url(./fonts/basiercircle-regular.otf) format('opentype');
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                            'embedded-opentype', and 'svg' */
 }
