@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ArrowDownwardSharpIcon from '@mui/icons-material/ArrowDownwardSharp';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import styles from './BuySellToggle.module.css';
+import { useStoreActions, useStoreState } from '../../store/hooks';
 
 const BuySellToggle: React.FC = () => {
-  const [sellBuy, setSellBuy] = useState('buy');
+  const operation = useStoreState((state) => state.operation);
+  const setOperation = useStoreActions((actions) => actions.setOperation);
   return (
     <span className={styles.sphere}>
-      {sellBuy === 'buy' ? (
+      {operation === 'Buy' ? (
         <div
           className={styles.arrow}
-          onClick={() => setSellBuy('sell')}
+          onClick={() => setOperation('Sell')}
           aria-hidden="true"
+          data-testid="operation-toggle"
         >
           <ArrowUpwardIcon fontSize="small" />
         </div>
@@ -19,8 +22,9 @@ const BuySellToggle: React.FC = () => {
         : (
           <div
             className={styles.arrow}
-            onClick={() => setSellBuy('buy')}
+            onClick={() => setOperation('Buy')}
             aria-hidden="true"
+            data-testid="operation-toggle"
           >
             {' '}
             <ArrowDownwardSharpIcon fontSize="small" />

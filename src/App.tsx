@@ -6,7 +6,7 @@ import Title from './components/Title';
 
 const App: React.FC = () => (
   <div className="App">
-    <Title operation="Buy" currency="USD" />
+    <Title currency="USD" />
     <CurrencyWrapper exchangedCurrency="GBP" balance={32.11} />
     <BuySellToggle />
     <CurrencyWrapper exchangedCurrency="EUR" balance={0} />
