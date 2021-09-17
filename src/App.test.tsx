@@ -14,7 +14,17 @@ test('renders Buy', () => {
   expect(linkElement).toBeInTheDocument();
 });
 
-test('clicking the operation button toggles an Buy/Sell', () => {
+test('renders USD', () => {
+  render(
+    <StoreProvider store={store}>
+      <App />
+    </StoreProvider>,
+  );
+  const linkElement = screen.getByText(/USD/i);
+  expect(linkElement).toBeInTheDocument();
+});
+
+test('clicking the operation button toggles a Buy/Sell', () => {
   const { getByTestId } = render(
     <StoreProvider store={store}>
       <App />
@@ -29,12 +39,30 @@ test('clicking the operation button toggles an Buy/Sell', () => {
   expect(sellText).toBeInTheDocument();
 });
 
-test('renders USD', () => {
-  render(
+test('click on the currency box focus on number input', () => {
+  const { container, getByTestId } = render(
     <StoreProvider store={store}>
       <App />
     </StoreProvider>,
   );
-  const linkElement = screen.getByText(/USD/i);
-  expect(linkElement).toBeInTheDocument();
+
+  const input1 = container.getElementsByTagName('input')[0];
+  const input2 = container.getElementsByTagName('input')[1];
+  const currencyBox1 = getByTestId('currency-box-1');
+  const currencyBox2 = getByTestId('currency-box-2');
+
+  expect(input1).not.toHaveFocus();
+  expect(input2).not.toHaveFocus();
+  fireEvent.click(currencyBox1);
+  expect(input1).toHaveFocus();
+  expect(input2).not.toHaveFocus();
+  fireEvent.click(currencyBox2);
+  expect(input1).not.toHaveFocus();
+  expect(input2).toHaveFocus();
+  fireEvent.click(currencyBox2);
+  expect(input1).not.toHaveFocus();
+  expect(input2).toHaveFocus();
+  fireEvent.click(currencyBox1);
+  expect(input1).toHaveFocus();
+  expect(input2).not.toHaveFocus();
 });

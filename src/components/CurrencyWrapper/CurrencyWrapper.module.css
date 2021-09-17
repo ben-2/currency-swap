@@ -9,6 +9,21 @@
     margin-top: 6px;
 }
 
+.currencyBox:focus-within {
+    background-color: #e1e5e6;
+}
+
+.currencyBoxFocus {
+    height: 59px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 9px;
+    background-color: #e1e5e6;
+    margin-left: 3vw;
+    margin-right: 3vw;
+    margin-top: 6px;
+}
+
 .currencyWrapper {
     padding-left: 13px;
     padding-top: 7px;
@@ -37,4 +52,52 @@
     font-size: 12px;
     line-height: 10px;
     color: grey;
+}
+
+.accountBox {
+    width: 50%;
+    display: inline-block;
+    text-align: right;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.amountInput {
+    width: 50%;
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+input {
+    background-color: rgba(0,0,0,0);
+    caret-color: blue;
+    text-align: right;
+    height: 100%;
+    vertical-align: middle;
+    border: none;
+    padding-right: 15px;
+  }
+  
+input:focus {
+    background-color: rgba(0,0,0,0);
+    border: none;
+    outline: none;
+    text-align: right;
+}
+
+input::placeholder {
+    opacity: 0.5;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
