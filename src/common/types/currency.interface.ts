@@ -1,1 +1,1 @@
-export type CurrencyAccount = 'USD' | 'EUR' | 'GBP';
+export type CurrencyAccount = 'USD' | 'EUR' | 'GBP' | 'ETH';
