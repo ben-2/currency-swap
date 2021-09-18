@@ -12,9 +12,19 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <Title currency={currencyIn} />
-      <CurrencyWrapper id={1} exchangedCurrency={currencyIn} balance={32.11} />
+      <CurrencyWrapper
+        id={1}
+        defaultFocus
+        exchangedCurrency={currencyIn}
+        balance={32.11}
+      />
       <BuySellToggle />
-      <CurrencyWrapper id={2} exchangedCurrency={currencyOut} balance={0} />
+      <CurrencyWrapper
+        id={2}
+        defaultFocus={false}
+        exchangedCurrency={currencyOut}
+        balance={0}
+      />
     </div>
   );
 };

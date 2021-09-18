@@ -13,7 +13,13 @@ const Title: React.FC<TitleProps> = (props) => {
   return (
     <div className={styles.titleWrapper}>
       <div className={styles.operation}>{ operation }</div>
-      <div className={styles.currency}>{currency}</div>
+      <div
+        className={styles.currency}
+        data-testid="title-currency"
+      >
+        {currency}
+
+      </div>
     </div>
   );
 };

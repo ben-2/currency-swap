@@ -1,18 +1,24 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { CurrencyAccount } from '../../common/types/currency.interface';
 import styles from './CurrencyWrapper.module.css';
 
 interface Props {
   id: number;
+  defaultFocus: boolean;
   exchangedCurrency: CurrencyAccount;
   balance: number;
 }
 
 const CurrencyWrapper: React.FC<Props> = (props) => {
-  const { id, exchangedCurrency, balance } = props;
+  const {
+    id, defaultFocus, exchangedCurrency, balance,
+  } = props;
   const inputFocus: React.RefObject<HTMLInputElement> = useRef(null);
 
+  useEffect(() => {
+    if (defaultFocus && inputFocus.current) { inputFocus.current.focus(); }
+  }, [defaultFocus]);
   return (
     <div
       className={styles.currencyBox}

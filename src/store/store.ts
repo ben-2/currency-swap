@@ -11,9 +11,9 @@ export interface StoreModel {
 }
 
 export const store = createStore<StoreModel>({
-  operation: 'Buy',
+  operation: 'Sell',
   currencyIn: 'EUR',
-  currencyOut: 'ETH',
+  currencyOut: 'USD',
   setOperation: action((state, payload) => {
     state.operation = payload;
   }),
