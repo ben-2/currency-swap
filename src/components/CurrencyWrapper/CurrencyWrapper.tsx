@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import NumberFormat from 'react-number-format';
 import { CurrencyAccount } from '../../common/types/currency.interface';
 import styles from './CurrencyWrapper.module.css';
+import { useStoreState } from '../../store/hooks';
 
 interface Props {
   id: number;
@@ -15,6 +17,7 @@ const CurrencyWrapper: React.FC<Props> = (props) => {
     id, defaultFocus, exchangedCurrency, balance,
   } = props;
   const inputFocus: React.RefObject<HTMLInputElement> = useRef(null);
+  const operation = useStoreState((state) => state.operation);
 
   useEffect(() => {
     if (defaultFocus && inputFocus.current) { inputFocus.current.focus(); }
@@ -40,7 +43,19 @@ const CurrencyWrapper: React.FC<Props> = (props) => {
         </div>
       </div>
       <div className={styles.amountInput}>
-        <input type="number" placeholder="0" ref={inputFocus} />
+        <NumberFormat
+          getInputRef={inputFocus}
+          value={null}
+          decimalSeparator=","
+          thousandSeparator=" "
+          displayType="input"
+          prefix={
+            (id === 1 && operation === 'Sell')
+            || (id === 2 && operation === 'Buy') ? '– ' : '+ '
+}
+          type="text"
+          placeholder="0"
+        />
       </div>
     </div>
   );

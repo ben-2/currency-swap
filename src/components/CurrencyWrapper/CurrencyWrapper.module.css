@@ -69,6 +69,12 @@
     vertical-align: middle;
 }
 
+.inputDiv {
+    display: inline-block;
+    height: 100%;
+    width: 100%
+}
+
 input {
     background-color: rgba(0,0,0,0);
     caret-color: blue;
@@ -76,11 +82,13 @@ input {
     height: 100%;
     vertical-align: middle;
     border: none;
+    display: inline-block;
     padding-right: 15px;
     font-weight: bold;
     letter-spacing: 0.2px;
     margin-right: 5px;
     margin-left: -10px;
+    width: 100%
   }
   
 input:focus {
