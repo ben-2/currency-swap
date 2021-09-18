@@ -14,7 +14,11 @@ export interface StoreModel {
     operation: Operation;
     currencyIn: CurrencyAccount;
     currencyOut: CurrencyAccount;
+    currencyInValue?: string;
+    currencyOutValue?: string;
     setOperation: Action<StoreModel, Operation>;
+    setCurrencyInValue: Action<StoreModel, string | undefined>;
+    setCurrencyOutValue: Action<StoreModel, string | undefined>;
     accountsList: AccountList;
 }
 
@@ -22,8 +26,16 @@ export const store = createStore<StoreModel>({
   operation: 'Sell',
   currencyIn: 'EUR',
   currencyOut: 'USD',
+  currencyInValue: undefined,
+  currencyOutValue: undefined,
   setOperation: action((state, payload) => {
     state.operation = payload;
+  }),
+  setCurrencyInValue: action((state, payload) => {
+    state.currencyInValue = payload;
+  }),
+  setCurrencyOutValue: action((state, payload) => {
+    state.currencyOutValue = payload;
   }),
   accountsList: [
     {

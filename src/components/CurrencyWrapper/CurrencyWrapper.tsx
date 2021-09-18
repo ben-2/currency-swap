@@ -3,7 +3,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import NumberFormat from 'react-number-format';
 import { CurrencyAccount } from '../../common/types/currency.interface';
 import styles from './CurrencyWrapper.module.css';
-import { useStoreState } from '../../store/hooks';
+import { useStoreActions, useStoreState } from '../../store/hooks';
 
 interface Props {
   id: number;
@@ -18,6 +18,14 @@ const CurrencyWrapper: React.FC<Props> = (props) => {
   } = props;
   const inputFocus: React.RefObject<HTMLInputElement> = useRef(null);
   const operation = useStoreState((state) => state.operation);
+  const currencyInValue = useStoreState((state) => state.currencyInValue);
+  const currencyOutValue = useStoreState((state) => state.currencyOutValue);
+  const setCurrencyInValue = useStoreActions(
+    (actions) => actions.setCurrencyInValue,
+  );
+  const setCurrencyOutValue = useStoreActions(
+    (actions) => actions.setCurrencyOutValue,
+  );
 
   useEffect(() => {
     if (defaultFocus && inputFocus.current) { inputFocus.current.focus(); }
@@ -45,7 +53,7 @@ const CurrencyWrapper: React.FC<Props> = (props) => {
       <div className={styles.amountInput}>
         <NumberFormat
           getInputRef={inputFocus}
-          value={null}
+          value={id === 1 ? currencyInValue : currencyOutValue}
           decimalSeparator=","
           thousandSeparator=" "
           displayType="input"
@@ -55,6 +63,15 @@ const CurrencyWrapper: React.FC<Props> = (props) => {
 }
           type="text"
           placeholder="0"
+          onValueChange={(values) => {
+            const { formattedValue } = values;
+            if (id === 1) {
+              setCurrencyInValue(formattedValue);
+            } else {
+              setCurrencyOutValue(formattedValue);
+            }
+          }}
+          decimalScale={2}
         />
       </div>
     </div>
