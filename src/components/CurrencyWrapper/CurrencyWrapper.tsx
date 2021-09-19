@@ -16,65 +16,90 @@ const CurrencyWrapper: React.FC<Props> = (props) => {
   const {
     id, defaultFocus, exchangedCurrency, balance,
   } = props;
-  const inputFocus: React.RefObject<HTMLInputElement> = useRef(null);
-  const operation = useStoreState((state) => state.operation);
-  const currencyInValue = useStoreState((state) => state.currencyInValue);
-  const currencyOutValue = useStoreState((state) => state.currencyOutValue);
-  const setCurrencyInValue = useStoreActions(
-    (actions) => actions.setCurrencyInValue,
-  );
-  const setCurrencyOutValue = useStoreActions(
-    (actions) => actions.setCurrencyOutValue,
-  );
+  const inputFocus: React.RefObject<
+HTMLInputElement> = useRef(null);
+  const globalState = useStoreState((state) => state);
+  const globalActions = useStoreActions((actions) => actions);
+  const {
+    operation,
+    currencyInValue,
+    displayConversionIn,
+    displayConversionOut,
+    currencyInValueControlled, currencyOutValue, currencyOutValueControlled,
+  } = globalState;
+  const {
+    setCurrencyInValue,
+    setCurrencyOutValue,
+    setDisplayConversionIn,
+    setDisplayConversionOut,
+  } = globalActions;
 
   useEffect(() => {
     if (defaultFocus && inputFocus.current) { inputFocus.current.focus(); }
   }, [defaultFocus]);
+
+  let value;
+  if (id === 1 && displayConversionIn) {
+    value = currencyInValueControlled as number | undefined;
+  } else if (id === 1) {
+    value = currencyInValue as number | undefined;
+  } else if (displayConversionOut) {
+    value = currencyOutValueControlled as number | undefined;
+  } else {
+    value = currencyOutValue as number | undefined;
+  }
   return (
-    <div
-      className={styles.currencyBox}
-      onClick={() => {
-        if (inputFocus.current) { inputFocus.current.focus(); }
-      }}
-      aria-hidden="true"
-      data-testid={`currency-box-${id}`}
-    >
-      <div className={styles.accountBox}>
-        <div className={styles.currencyWrapper}>
-          <div className={styles.currency}>{exchangedCurrency}</div>
-          <div className={styles.downArrow}><KeyboardArrowDownIcon /></div>
+    <>
+
+      <div
+        className={styles.currencyBox}
+        onClick={() => {
+          if (inputFocus.current) { inputFocus.current.focus(); }
+        }}
+        aria-hidden="true"
+        data-testid={`currency-box-${id}`}
+      >
+        <div className={styles.accountBox}>
+          <div className={styles.currencyWrapper}>
+            <div className={styles.currency}>{exchangedCurrency}</div>
+            <div className={styles.downArrow}><KeyboardArrowDownIcon /></div>
+          </div>
+          <div className={styles.balance}>
+            Balance :
+            {' '}
+            {balance}
+          </div>
         </div>
-        <div className={styles.balance}>
-          Balance :
-          {' '}
-          {balance}
-        </div>
-      </div>
-      <div className={styles.amountInput}>
-        <NumberFormat
-          getInputRef={inputFocus}
-          value={id === 1 ? currencyInValue : currencyOutValue}
-          decimalSeparator=","
-          thousandSeparator=" "
-          displayType="input"
-          prefix={
+        <div className={styles.amountInput}>
+          <NumberFormat
+            getInputRef={inputFocus}
+            value={value}
+            decimalSeparator=","
+            thousandSeparator=" "
+            displayType="input"
+            prefix={
             (id === 1 && operation === 'Sell')
             || (id === 2 && operation === 'Buy') ? '– ' : '+ '
 }
-          type="text"
-          placeholder="0"
-          onValueChange={(values) => {
-            const { formattedValue } = values;
-            if (id === 1) {
-              setCurrencyInValue(formattedValue);
-            } else {
-              setCurrencyOutValue(formattedValue);
-            }
-          }}
-          decimalScale={2}
-        />
+            type="text"
+            placeholder="0"
+            onValueChange={(values) => {
+              const { floatValue } = values;
+              if (id === 1 && floatValue) {
+                setDisplayConversionIn(false);
+                setDisplayConversionOut(true);
+                setCurrencyInValue(floatValue);
+              } else {
+                setDisplayConversionIn(true);
+                setDisplayConversionOut(false);
+                setCurrencyOutValue(floatValue);
+              }
+            }}
+            decimalScale={2}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
