@@ -16,9 +16,13 @@ export interface StoreModel {
     currencyOut: CurrencyAccount;
     currencyInValue?: string;
     currencyOutValue?: string;
+    currencyInValueControlled?: string;
+    currencyOutValueControlled?: string;
     setOperation: Action<StoreModel, Operation>;
     setCurrencyInValue: Action<StoreModel, string | undefined>;
     setCurrencyOutValue: Action<StoreModel, string | undefined>;
+    setCurrencyInValueControlled: Action<StoreModel, string | undefined>;
+    setCurrencyOutValueControlled: Action<StoreModel, string | undefined>;
     accountsList: AccountList;
 }
 
@@ -28,6 +32,8 @@ export const store = createStore<StoreModel>({
   currencyOut: 'USD',
   currencyInValue: undefined,
   currencyOutValue: undefined,
+  currencyInValueControlled: undefined,
+  currencyOutValueControlled: undefined,
   setOperation: action((state, payload) => {
     state.operation = payload;
   }),
@@ -36,6 +42,12 @@ export const store = createStore<StoreModel>({
   }),
   setCurrencyOutValue: action((state, payload) => {
     state.currencyOutValue = payload;
+  }),
+  setCurrencyInValueControlled: action((state, payload) => {
+    state.currencyInValueControlled = payload;
+  }),
+  setCurrencyOutValueControlled: action((state, payload) => {
+    state.currencyOutValueControlled = payload;
   }),
   accountsList: [
     {
