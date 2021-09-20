@@ -6,9 +6,11 @@ import styles from './CurrencyList.module.css';
 import { useStoreState } from '../../store/hooks';
 
 type CurrencyListProps = {
+  setShowCurrencyList: (show: boolean) => void;
 }
 
 const CurrencyList: React.FC<CurrencyListProps> = (props) => {
+  const { setShowCurrencyList } = props;
   const accountsList = useStoreState((state) => state.accountsList);
   const [filter, setFilter] = useState('');
   return (
@@ -17,7 +19,11 @@ const CurrencyList: React.FC<CurrencyListProps> = (props) => {
       data-testid="currency-list"
     >
       <div className={styles.currencyFilter}>
-        <div className={styles.arrowBack}>
+        <div
+          className={styles.arrowBack}
+          onClick={() => setShowCurrencyList(false)}
+          aria-hidden
+        >
           <ArrowBackIcon />
         </div>
         <div className={styles.filterInput}>
@@ -32,7 +38,7 @@ const CurrencyList: React.FC<CurrencyListProps> = (props) => {
             <div
               className={styles.resetFilter}
               onClick={() => setFilter('')}
-              aria-hidden="true"
+              aria-hidden
             >
               <ClearIcon sx={{ fontSize: 20 }} />
             </div>

@@ -10,11 +10,16 @@ interface Props {
   defaultFocus: boolean;
   exchangedCurrency: CurrencyAccount;
   balance: number;
+  setShowCurrencyList: (show: boolean) => void;
 }
 
 const CurrencyWrapper: React.FC<Props> = (props) => {
   const {
-    id, defaultFocus, exchangedCurrency, balance,
+    id,
+    defaultFocus,
+    exchangedCurrency,
+    balance,
+    setShowCurrencyList,
   } = props;
   const inputFocus: React.RefObject<
 HTMLInputElement> = useRef(null);
@@ -42,7 +47,7 @@ HTMLInputElement> = useRef(null);
       inputFocus.current.focus();
       setFocusedBox('In');
     }
-  }, [defaultFocus]);
+  }, [defaultFocus, setFocusedBox]);
 
   let value;
   if (id === 1 && displayConversionIn) {
@@ -68,13 +73,25 @@ HTMLInputElement> = useRef(null);
             setFocusedBox('Out');
           }
         }}
-        aria-hidden="true"
+        aria-hidden
         data-testid={`currency-box-${id}`}
       >
         <div className={styles.accountBox}>
           <div className={styles.currencyWrapper}>
-            <div className={styles.currency}>{exchangedCurrency}</div>
-            <div className={styles.downArrow}><KeyboardArrowDownIcon /></div>
+            <div
+              className={styles.currency}
+              onClick={() => setShowCurrencyList(true)}
+              aria-hidden
+            >
+              {exchangedCurrency}
+            </div>
+            <div
+              className={styles.downArrow}
+              onClick={() => setShowCurrencyList(true)}
+              aria-hidden
+            >
+              <KeyboardArrowDownIcon />
+            </div>
           </div>
           <div className={styles.balance}>
             Balance :
