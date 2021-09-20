@@ -66,6 +66,23 @@ HTMLInputElement> = useRef(null);
   } else {
     value = currencyOutValue as number | undefined;
   }
+
+  let displayErrorMessage = false;
+  if (
+    id === 1
+    && operation === 'Sell'
+    && currencyInValue
+    && currencyInValue > balance
+  ) {
+    displayErrorMessage = true;
+  } else if (
+    id === 2
+    && operation === 'Buy'
+    && currencyOutValue
+    && currencyOutValue > balance
+  ) {
+    displayErrorMessage = true;
+  }
   return (
     <>
 
@@ -133,6 +150,9 @@ HTMLInputElement> = useRef(null);
             }}
             decimalScale={2}
           />
+          {displayErrorMessage
+            ? <div className={styles.errorMessage}>Exceeds your balance</div>
+            : null }
         </div>
       </div>
     </>
