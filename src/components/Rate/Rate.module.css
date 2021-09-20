@@ -1,0 +1,35 @@
+.rateWrapper {
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 14px;
+    letter-spacing: 0.2px;
+    margin-left: 3vw;
+    color: #0072ff;
+    display: inline-block;
+    vertical-align: middle;
+    height: 16px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.rateIcon {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.currencyIn {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    padding-left: 5px;
+    padding-right: 1px;
+}
+
+.rate {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    padding-left: 5px;
+}

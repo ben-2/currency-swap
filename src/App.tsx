@@ -3,6 +3,7 @@ import './App.css';
 import BuySellToggle from './components/BuySellToggle';
 import CurrencyList from './components/CurrencyList';
 import CurrencyWrapper from './components/CurrencyWrapper';
+import Rate from './components/Rate';
 import Title from './components/Title';
 import { useStoreState } from './store/hooks';
 
@@ -22,6 +23,7 @@ const App: React.FC = () => {
         : (
           <>
             <Title currency={currencyIn} />
+            <Rate />
             <CurrencyWrapper
               id={1}
               defaultFocus
