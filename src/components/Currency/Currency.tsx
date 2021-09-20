@@ -7,14 +7,13 @@ import { useStoreState } from '../../store/hooks';
 
 type CurrencyProps = {
     currency: CurrencyAccount;
-    currencyDescription: string;
 }
 
 const Currency: React.FC<CurrencyProps> = (props) => {
-  const { currency, currencyDescription } = props;
-  const currencyBalance = useStoreState(
+  const { currency } = props;
+  const currencyAccount = useStoreState(
     (state) => state.accountsList
-      .filter((account) => account.currency === currency)[0].balance,
+      .filter((account) => account.currency === currency)[0],
   );
   return (
     <div
@@ -35,10 +34,10 @@ const Currency: React.FC<CurrencyProps> = (props) => {
           {' '}
           ·
           {' '}
-          {currencyBalance.toString().replace('.', ',')}
+          {currencyAccount.balance.toString().replace('.', ',')}
         </div>
         <div className={styles.currencyDescription}>
-          {currencyDescription}
+          {currencyAccount.currencyDescription}
         </div>
       </div>
     </div>

@@ -1,12 +1,16 @@
 import {
   Action, action, computed, Computed, createStore,
 } from 'easy-peasy';
-import { CurrencyAccount } from '../common/types/currency.interface';
+import {
+  CurrencyAccount,
+  CurrencyDescription,
+} from '../common/types/currency.interface';
 
 type Operation = 'Buy'|'Sell';
 
 interface Account {
   currency: CurrencyAccount;
+  currencyDescription: CurrencyDescription;
   exchangeRateInEur: number;
   balance: number;
 }
@@ -76,16 +80,19 @@ export const store = createStore<StoreModel>({
   accountsList: [
     {
       currency: 'EUR',
+      currencyDescription: 'Euro',
       exchangeRateInEur: 1,
       balance: 35.6,
     },
     {
       currency: 'GBP',
+      currencyDescription: 'GB Pound',
       exchangeRateInEur: 0.85,
       balance: 0,
     },
     {
       currency: 'USD',
+      currencyDescription: 'US Dollar',
       exchangeRateInEur: 1.2,
       balance: 0,
     },
