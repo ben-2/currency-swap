@@ -4,6 +4,7 @@ import {
 import {
   CurrencyAccount,
   CurrencyDescription,
+  CurrencySymbol,
   FocusedBox,
 } from '../common/types/currency.interface';
 
@@ -12,6 +13,7 @@ type Operation = 'Buy'|'Sell';
 interface Account {
   currency: CurrencyAccount;
   currencyDescription: CurrencyDescription;
+  symbol: CurrencySymbol;
   exchangeRateInEur: number;
   balance: number;
 }
@@ -52,18 +54,21 @@ export const store = createStore<StoreModel>({
     {
       currency: 'EUR',
       currencyDescription: 'Euro',
+      symbol: '€',
       exchangeRateInEur: 1,
       balance: 35.6,
     },
     {
       currency: 'GBP',
       currencyDescription: 'GB Pound',
+      symbol: '£',
       exchangeRateInEur: 0.85,
       balance: 0,
     },
     {
       currency: 'USD',
       currencyDescription: 'US Dollar',
+      symbol: '$',
       exchangeRateInEur: 1.2,
       balance: 0,
     },
