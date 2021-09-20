@@ -4,6 +4,7 @@ import {
 import {
   CurrencyAccount,
   CurrencyDescription,
+  FocusedBox,
 } from '../common/types/currency.interface';
 
 type Operation = 'Buy'|'Sell';
@@ -24,6 +25,8 @@ export interface StoreModel {
     displayConversionOut: boolean;
     currencyInValue?: number | undefined;
     currencyOutValue?: number | undefined;
+    focusedBox: FocusedBox;
+    accountsList: AccountList;
     currencyInValueControlled?: Computed<StoreModel, number | undefined>;
     currencyOutValueControlled?: Computed<StoreModel, number | undefined>;
     setOperation: Action<StoreModel, Operation>;
@@ -31,7 +34,7 @@ export interface StoreModel {
     setDisplayConversionIn: Action<StoreModel, boolean>;
     setDisplayConversionOut: Action<StoreModel, boolean>;
     setCurrencyOutValue: Action<StoreModel, number | undefined>;
-    accountsList: AccountList;
+    setFocusedBox: Action<StoreModel, FocusedBox>;
 }
 
 export const store = createStore<StoreModel>({
@@ -42,6 +45,27 @@ export const store = createStore<StoreModel>({
   displayConversionOut: false,
   currencyInValue: undefined,
   currencyOutValue: undefined,
+  focusedBox: 'In',
+  accountsList: [
+    {
+      currency: 'EUR',
+      currencyDescription: 'Euro',
+      exchangeRateInEur: 1,
+      balance: 35.6,
+    },
+    {
+      currency: 'GBP',
+      currencyDescription: 'GB Pound',
+      exchangeRateInEur: 0.85,
+      balance: 0,
+    },
+    {
+      currency: 'USD',
+      currencyDescription: 'US Dollar',
+      exchangeRateInEur: 1.2,
+      balance: 0,
+    },
+  ],
   currencyInValueControlled: computed((state) => {
     const currencyOutExchangeRate = state.accountsList
       .filter(
@@ -77,24 +101,7 @@ export const store = createStore<StoreModel>({
   setCurrencyOutValue: action((state, payload) => {
     state.currencyOutValue = payload;
   }),
-  accountsList: [
-    {
-      currency: 'EUR',
-      currencyDescription: 'Euro',
-      exchangeRateInEur: 1,
-      balance: 35.6,
-    },
-    {
-      currency: 'GBP',
-      currencyDescription: 'GB Pound',
-      exchangeRateInEur: 0.85,
-      balance: 0,
-    },
-    {
-      currency: 'USD',
-      currencyDescription: 'US Dollar',
-      exchangeRateInEur: 1.2,
-      balance: 0,
-    },
-  ],
+  setFocusedBox: action((state, payload) => {
+    state.focusedBox = payload;
+  }),
 });

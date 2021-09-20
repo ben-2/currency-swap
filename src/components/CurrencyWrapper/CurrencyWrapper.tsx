@@ -25,17 +25,23 @@ HTMLInputElement> = useRef(null);
     currencyInValue,
     displayConversionIn,
     displayConversionOut,
-    currencyInValueControlled, currencyOutValue, currencyOutValueControlled,
+    currencyInValueControlled,
+    currencyOutValue,
+    currencyOutValueControlled,
   } = globalState;
   const {
     setCurrencyInValue,
     setCurrencyOutValue,
     setDisplayConversionIn,
     setDisplayConversionOut,
+    setFocusedBox,
   } = globalActions;
 
   useEffect(() => {
-    if (defaultFocus && inputFocus.current) { inputFocus.current.focus(); }
+    if (defaultFocus && inputFocus.current) {
+      inputFocus.current.focus();
+      setFocusedBox('In');
+    }
   }, [defaultFocus]);
 
   let value;
@@ -54,7 +60,13 @@ HTMLInputElement> = useRef(null);
       <div
         className={styles.currencyBox}
         onClick={() => {
-          if (inputFocus.current) { inputFocus.current.focus(); }
+          if (defaultFocus && inputFocus.current) {
+            inputFocus.current.focus();
+            setFocusedBox('In');
+          } else if (inputFocus.current) {
+            inputFocus.current.focus();
+            setFocusedBox('Out');
+          }
         }}
         aria-hidden="true"
         data-testid={`currency-box-${id}`}
