@@ -10,33 +10,51 @@ interface Props {
   defaultFocus: boolean;
   exchangedCurrency: CurrencyAccount;
   balance: number;
+  setShowCurrencyList: (show: boolean) => void;
 }
 
 const CurrencyWrapper: React.FC<Props> = (props) => {
   const {
-    id, defaultFocus, exchangedCurrency, balance,
+    id,
+    defaultFocus,
+    exchangedCurrency,
+    balance,
+    setShowCurrencyList,
   } = props;
   const inputFocus: React.RefObject<
 HTMLInputElement> = useRef(null);
-  const globalState = useStoreState((state) => state);
+  const operation = useStoreState((state) => state.operation);
+  const currencyInValue = useStoreState((state) => state.currencyInValue);
+  const displayConversionIn = useStoreState(
+    (state) => state.displayConversionIn,
+  );
+  const displayConversionOut = useStoreState(
+    (state) => state.displayConversionOut,
+  );
+  const currencyInValueControlled = useStoreState(
+    (state) => state.currencyInValueControlled,
+  );
+  const currencyOutValue = useStoreState(
+    (state) => state.currencyOutValue,
+  );
+  const currencyOutValueControlled = useStoreState(
+    (state) => state.currencyOutValueControlled,
+  );
   const globalActions = useStoreActions((actions) => actions);
-  const {
-    operation,
-    currencyInValue,
-    displayConversionIn,
-    displayConversionOut,
-    currencyInValueControlled, currencyOutValue, currencyOutValueControlled,
-  } = globalState;
   const {
     setCurrencyInValue,
     setCurrencyOutValue,
     setDisplayConversionIn,
     setDisplayConversionOut,
+    setFocusedBox,
   } = globalActions;
 
   useEffect(() => {
-    if (defaultFocus && inputFocus.current) { inputFocus.current.focus(); }
-  }, [defaultFocus]);
+    if (defaultFocus && inputFocus.current) {
+      inputFocus.current.focus();
+      setFocusedBox('In');
+    }
+  }, [defaultFocus, setFocusedBox]);
 
   let value;
   if (id === 1 && displayConversionIn) {
@@ -54,20 +72,38 @@ HTMLInputElement> = useRef(null);
       <div
         className={styles.currencyBox}
         onClick={() => {
-          if (inputFocus.current) { inputFocus.current.focus(); }
+          if (defaultFocus && inputFocus.current) {
+            inputFocus.current.focus();
+            setFocusedBox('In');
+          } else if (inputFocus.current) {
+            inputFocus.current.focus();
+            setFocusedBox('Out');
+          }
         }}
-        aria-hidden="true"
+        aria-hidden
         data-testid={`currency-box-${id}`}
       >
         <div className={styles.accountBox}>
           <div className={styles.currencyWrapper}>
-            <div className={styles.currency}>{exchangedCurrency}</div>
-            <div className={styles.downArrow}><KeyboardArrowDownIcon /></div>
+            <div
+              className={styles.currency}
+              onClick={() => setShowCurrencyList(true)}
+              aria-hidden
+            >
+              {exchangedCurrency}
+            </div>
+            <div
+              className={styles.downArrow}
+              onClick={() => setShowCurrencyList(true)}
+              aria-hidden
+            >
+              <KeyboardArrowDownIcon />
+            </div>
           </div>
           <div className={styles.balance}>
             Balance :
             {' '}
-            {balance}
+            {balance.toString().replace('.', ',')}
           </div>
         </div>
         <div className={styles.amountInput}>

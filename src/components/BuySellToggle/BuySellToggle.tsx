@@ -13,7 +13,7 @@ const BuySellToggle: React.FC = () => {
         <div
           className={styles.arrow}
           onClick={() => setOperation('Sell')}
-          aria-hidden="true"
+          aria-hidden
           data-testid="operation-toggle"
         >
           <ArrowUpwardIcon fontSize="small" />
@@ -23,7 +23,7 @@ const BuySellToggle: React.FC = () => {
           <div
             className={styles.arrow}
             onClick={() => setOperation('Buy')}
-            aria-hidden="true"
+            aria-hidden
             data-testid="operation-toggle"
           >
             {' '}
