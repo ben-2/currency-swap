@@ -1,0 +1,36 @@
+.currencyWrapper {
+    text-align: left;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    margin-left: 3vw;
+    padding-top: 12px;
+    margin-bottom: 12px;
+    height: 100%;
+}
+
+.flagDiv {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 12px;
+    height: 100%;
+}
+
+.currencyTextDescription {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.currencyText {
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.currencyDescription {
+    font-size: 12px;
+    font-weight: normal;
+    color: grey;
+    height: 100%;
+}

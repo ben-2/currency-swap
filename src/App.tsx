@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import BuySellToggle from './components/BuySellToggle';
+import Currency from './components/Currency';
 import CurrencyWrapper from './components/CurrencyWrapper';
 import Title from './components/Title';
 import { useStoreState } from './store/hooks';
