@@ -1,5 +1,8 @@
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import React from 'react';
+import Modal from '@mui/material/Modal';
+import React, { useState } from 'react';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { useStoreState } from '../../store/hooks';
 import styles from './ExchangeButton.module.css';
 
@@ -7,6 +10,7 @@ type ExchangeButtonProps = {
 }
 
 const ExchangeButton: React.FC<ExchangeButtonProps> = () => {
+  const [open, setOpen] = useState(false);
   const operation = useStoreState((state) => state.operation);
   const currencyIn = useStoreState((state) => state.currencyIn);
   const currencyInValue = useStoreState((state) => state.currencyInValue);
@@ -22,7 +26,17 @@ const ExchangeButton: React.FC<ExchangeButtonProps> = () => {
       .filter((account) => account.currency === currencyOut)[0].balance,
   );
 
+  const symbolIn = useStoreState(
+    (state) => state.accountsList
+      .filter((account) => account.currency === currencyIn)[0].symbol,
+  );
+  const symbolOut = useStoreState(
+    (state) => state.accountsList
+      .filter((account) => account.currency === currencyOut)[0].symbol,
+  );
+
   let disableButton = false;
+
   if (
     operation === 'Sell'
     && currencyInValue
@@ -35,6 +49,22 @@ const ExchangeButton: React.FC<ExchangeButtonProps> = () => {
     && currencyOutValue > balanceOut
   ) {
     disableButton = true;
+  } else if (
+    currencyInValue === 0
+    || currencyOutValue === 0
+    || typeof currencyInValue === 'undefined'
+    || typeof currencyOutValue === 'undefined'
+  ) {
+    disableButton = true;
+  }
+
+  let amountExchanged = '';
+  if (operation === 'Sell') {
+    amountExchanged = `${symbolIn}${currencyInValue}
+    to ${symbolOut}${currencyOutValue}`;
+  } else if (operation === 'Buy') {
+    amountExchanged = `${symbolOut}${currencyOutValue}
+    to ${symbolIn}${currencyInValue}`;
   }
   return (
     <div className={styles.exchangeButtonWrapper}>
@@ -42,6 +72,7 @@ const ExchangeButton: React.FC<ExchangeButtonProps> = () => {
         className={styles.button}
         variant="contained"
         disabled={disableButton}
+        onClick={() => setOpen(true)}
       >
         {operation}
         {' '}
@@ -51,6 +82,28 @@ const ExchangeButton: React.FC<ExchangeButtonProps> = () => {
         {' '}
         {currencyOut}
       </Button>
+      <div
+        className={styles.modalRoot}
+      >
+        <Modal
+          open={open}
+          onClose={() => setOpen(false)}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box className={styles.modalBox}>
+            <div className={styles.successIcon}>
+              <CheckCircleOutlineIcon sx={{ fontSize: 80 }} />
+            </div>
+            <div className={styles.successExchange}>
+              You exchanged
+            </div>
+            <div className={styles.successExchange}>
+              {amountExchanged}
+            </div>
+          </Box>
+        </Modal>
+      </div>
     </div>
   );
 };

@@ -138,7 +138,7 @@ HTMLInputElement> = useRef(null);
             placeholder="0"
             onValueChange={(values) => {
               const { floatValue } = values;
-              if (id === 1 && floatValue) {
+              if (id === 1) {
                 setDisplayConversionIn(false);
                 setDisplayConversionOut(true);
                 setCurrencyInValue(floatValue);

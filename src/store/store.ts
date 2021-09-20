@@ -65,14 +65,14 @@ export const store = createStore<StoreModel>({
       currencyDescription: 'GB Pound',
       symbol: '£',
       exchangeRateInEur: 0.85,
-      balance: 0,
+      balance: 50,
     },
     {
       currency: 'USD',
       currencyDescription: 'US Dollar',
       symbol: '$',
       exchangeRateInEur: 1.2,
-      balance: 0,
+      balance: 25,
     },
   ],
   currencyInValueControlled: computed(
