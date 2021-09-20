@@ -5,7 +5,6 @@ import { useStoreState } from '../../store/hooks';
 
 const Rate: React.FC = () => {
   const currencyIn = useStoreState((state) => state.currencyIn);
-  const currencyInValue = useStoreState((state) => state.currencyInValue);
   const currencyOut = useStoreState((state) => state.currencyOut);
   const currencyInExchangeRate = useStoreState(
     (state) => state.accountsList
