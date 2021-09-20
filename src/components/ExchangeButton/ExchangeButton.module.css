@@ -1,20 +1,12 @@
-.titleWrapper {
-    text-align: left;
-    font-size: 30px;
-    font-weight: 600;
-    line-height: 40px;
-    letter-spacing: 0.2px;
-    margin-left: 3vw;
-    padding-top: 12px;
-    margin-bottom: 4px;
+.exchangeButtonWrapper {
+    width: 97%;
+    position: fixed;
+    bottom: 10%;
+    z-index: 9999;
 }
 
-.operation {
-    display: inline-block;
-    padding-right: 5px;
-}
-
-.currency {
-    display: inline-block;
-    padding-left: 5px;
+.button {
+    width: 94vw;
+    text-transform: none!important;
+    border-radius: 10px!important;
 }
