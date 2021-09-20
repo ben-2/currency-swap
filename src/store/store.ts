@@ -29,6 +29,8 @@ export interface StoreModel {
     accountsList: AccountList;
     currencyInValueControlled?: Computed<StoreModel, number | undefined>;
     currencyOutValueControlled?: Computed<StoreModel, number | undefined>;
+    setCurrencyIn: Action<StoreModel, CurrencyAccount>;
+    setCurrencyOut: Action<StoreModel, CurrencyAccount>;
     setOperation: Action<StoreModel, Operation>;
     setCurrencyInValue: Action<StoreModel, number | undefined>;
     setDisplayConversionIn: Action<StoreModel, boolean>;
@@ -85,6 +87,12 @@ export const store = createStore<StoreModel>({
       return state.currencyInValue * currencyOutExchangeRate;
     }
     return undefined;
+  }),
+  setCurrencyIn: action((state, payload) => {
+    state.currencyIn = payload;
+  }),
+  setCurrencyOut: action((state, payload) => {
+    state.currencyOut = payload;
   }),
   setDisplayConversionIn: action((state, payload) => {
     state.displayConversionIn = payload;

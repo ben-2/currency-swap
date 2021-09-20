@@ -67,7 +67,7 @@ describe('SWITCH OPERATION - As a user when I switch the operation', () => {
 });
 
 describe('FOCUS - As a user when I click on the currency box', () => {
-  test('the number input contains in this box is focused', () => {
+  test('the number input contained in this box is focused', () => {
     const { container, getByTestId } = render(
       <StoreProvider store={store}>
         <App />

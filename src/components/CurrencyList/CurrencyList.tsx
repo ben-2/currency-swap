@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ClearIcon from '@mui/icons-material/Clear';
 import Currency from '../Currency';
 import styles from './CurrencyList.module.css';
-import { useStoreState } from '../../store/hooks';
+import { useStoreState, useStoreActions } from '../../store/hooks';
 
 type CurrencyListProps = {
   setShowCurrencyList: (show: boolean) => void;
@@ -12,7 +12,18 @@ type CurrencyListProps = {
 const CurrencyList: React.FC<CurrencyListProps> = (props) => {
   const { setShowCurrencyList } = props;
   const accountsList = useStoreState((state) => state.accountsList);
+  const focusedBox = useStoreState((state) => state.focusedBox);
+  const setCurrencyIn = useStoreActions((actions) => actions.setCurrencyIn);
+  const setCurrencyOut = useStoreActions((actions) => actions.setCurrencyOut);
   const [filter, setFilter] = useState('');
+  const inputFocus: React.RefObject<
+HTMLInputElement> = useRef(null);
+
+  useEffect(() => {
+    if (inputFocus.current) {
+      inputFocus.current.focus();
+    }
+  }, []);
   return (
     <div
       className={styles.currencyListWrapper}
@@ -31,6 +42,7 @@ const CurrencyList: React.FC<CurrencyListProps> = (props) => {
             className={styles.inputDiv}
             onChange={(e) => setFilter(e.target.value)}
             value={filter}
+            ref={inputFocus}
           />
         </div>
         {filter !== ''
@@ -48,7 +60,27 @@ const CurrencyList: React.FC<CurrencyListProps> = (props) => {
       {accountsList
         .filter((account) => account.currency.includes(filter.toUpperCase()))
         .map((account) => (
-          <Currency key={account.currency} currency={account.currency} />
+          <div
+            id={`wrapper-${account.currency}`}
+            key={`wrapper-${account.currency}`}
+            onClick={() => {
+              if (focusedBox === 'In') {
+                setCurrencyIn(account.currency);
+                setFilter('');
+                setShowCurrencyList(false);
+              } else if (focusedBox === 'Out') {
+                setCurrencyOut(account.currency);
+                setFilter('');
+                setShowCurrencyList(false);
+              }
+            }}
+            aria-hidden
+          >
+            <Currency
+              key={account.currency}
+              currency={account.currency}
+            />
+          </div>
         ))}
     </div>
   );
