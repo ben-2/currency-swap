@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import BuySellToggle from './components/BuySellToggle';
-import Currency from './components/Currency';
+import CurrencyList from './components/CurrencyList';
 import CurrencyWrapper from './components/CurrencyWrapper';
 import Title from './components/Title';
 import { useStoreState } from './store/hooks';
@@ -30,6 +30,7 @@ const App: React.FC = () => {
         exchangedCurrency={currencyOut}
         balance={currencyOutAccount.balance}
       />
+      <CurrencyList />
     </div>
   );
 };

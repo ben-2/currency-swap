@@ -2,12 +2,11 @@
     text-align: left;
     font-weight: 600;
     letter-spacing: 0.2px;
-    margin-left: 3vw;
-    margin-right: 3vw;
     padding-top: 13px;
     margin-bottom: 13px;
     height: 100%;
     width: 100%;
+    margin-left: 2vw;
 }
 
 .flagDiv {

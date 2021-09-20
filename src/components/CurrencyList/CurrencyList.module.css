@@ -1,36 +1,71 @@
-.currencyWrapper {
-    text-align: left;
-    font-weight: 600;
+.currencyListWrapper {
+  margin-left: 1vw;
+  margin-right: 3vw;
+}
+
+.currencyFilter {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  height: 24px;
+}
+
+.arrowBack {
+  display: inline-block;
+  vertical-align: middle;
+  width: 10%;
+  height: 100%;
+}
+
+.filterInput {
+  display: inline-block;
+  vertical-align: middle;
+  width: 90%;
+  height: 100%;
+}
+
+.inputDiv {
+  text-align: left!important;
+  height: 24px;
+  line-height: 24px;
+  padding-left: 22px;
+}
+
+input {
+    background-color: rgba(0,0,0,0);
+    caret-color: blue;
+    height: 100%;
+    vertical-align: middle;
+    border: none;
+    display: inline-block;
+    padding-right: 15px;
+    font-weight: bold;
     letter-spacing: 0.2px;
-    margin-left: 3vw;
-    padding-top: 12px;
-    margin-bottom: 12px;
-    height: 100%;
+    line-height: 14px;
+    margin-right: 5px;
+    margin-left: -10px;
+    width: 100%;
+  }
+
+input:focus {
+    background-color: rgba(0,0,0,0);
+    border: none;
+    outline: none;
+    text-align: right;
 }
 
-.flagDiv {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 12px;
-    height: 100%;
+input::placeholder {
+    opacity: 0.5;
 }
 
-.currencyTextDescription {
-    display: inline-block;
-    vertical-align: middle;
-    height: 100%;
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-.currencyText {
-    font-size: 14px;
-    display: inline-block;
-    vertical-align: middle;
-    height: 100%;
-}
-
-.currencyDescription {
-    font-size: 12px;
-    font-weight: normal;
-    color: grey;
-    height: 100%;
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
