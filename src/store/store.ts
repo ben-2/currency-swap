@@ -5,6 +5,7 @@ import {
   CurrencyAccount,
   CurrencyDescription,
   CurrencySymbol,
+  ExchangeRate,
   FocusedBox,
 } from '../common/types/currency.interface';
 
@@ -31,6 +32,7 @@ export interface StoreModel {
     accountsList: AccountList;
     currencyInValueControlled?: Computed<StoreModel, number | undefined>;
     currencyOutValueControlled?: Computed<StoreModel, number | undefined>;
+    setExchangeRate: Action<StoreModel, ExchangeRate>;
     setCurrencyIn: Action<StoreModel, CurrencyAccount>;
     setCurrencyOut: Action<StoreModel, CurrencyAccount>;
     setOperation: Action<StoreModel, Operation>;
@@ -123,6 +125,14 @@ export const store = createStore<StoreModel>({
       return undefined;
     },
   ),
+  setExchangeRate: action((state, payload) => {
+    state.accountsList.map((account) => {
+      if (account.currency === payload.currency) {
+        account.exchangeRateInEur = payload.rate;
+      }
+      return account;
+    });
+  }),
   setCurrencyIn: action((state, payload) => {
     state.currencyIn = payload;
   }),

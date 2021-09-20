@@ -1,14 +1,19 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { StoreProvider } from 'easy-peasy';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import App from './App';
 import { store } from './store/store';
+
+const queryClient = new QueryClient();
 
 describe('INITIALIZATION - As a user when I land on the app', () => {
   test('the default operation is Sell', () => {
     render(
       <StoreProvider store={store}>
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
       </StoreProvider>,
     );
     const linkElement = screen.getByText(/Sell/i);
@@ -18,7 +23,9 @@ describe('INITIALIZATION - As a user when I land on the app', () => {
   test('of EUR currency', () => {
     render(
       <StoreProvider store={store}>
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
       </StoreProvider>,
     );
     const currencyInTitle = screen.getAllByText(/EUR/i)[0];
@@ -31,7 +38,9 @@ describe('INITIALIZATION - As a user when I land on the app', () => {
   test('and the top box number input is focused', () => {
     const { container } = render(
       <StoreProvider store={store}>
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
       </StoreProvider>,
     );
 
@@ -47,7 +56,9 @@ describe('SWITCH OPERATION - As a user when I switch the operation', () => {
   test('it toggles a Buy/Sell operation', () => {
     const { getByTestId } = render(
       <StoreProvider store={store}>
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
       </StoreProvider>,
     );
 
@@ -70,7 +81,9 @@ describe('FOCUS - As a user when I click on the currency box', () => {
   test('the number input contained in this box is focused', () => {
     const { container, getByTestId } = render(
       <StoreProvider store={store}>
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
       </StoreProvider>,
     );
 
