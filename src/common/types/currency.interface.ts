@@ -6,3 +6,8 @@ export interface ExchangeRate {
   currency: CurrencyAccount;
   rate: number;
 }
+
+export interface Balance {
+  currency: CurrencyAccount;
+  balance?: number;
+}

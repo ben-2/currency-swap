@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import React, { useState } from 'react';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import { useStoreState } from '../../store/hooks';
+import { useStoreActions, useStoreState } from '../../store/hooks';
 import styles from './ExchangeButton.module.css';
 
 type ExchangeButtonProps = {
@@ -35,6 +35,8 @@ const ExchangeButton: React.FC<ExchangeButtonProps> = () => {
       .filter((account) => account.currency === currencyOut)[0].symbol,
   );
 
+  const setBalance = useStoreActions((actions) => actions.setBalance);
+
   let disableButton = false;
 
   if (
@@ -54,6 +56,7 @@ const ExchangeButton: React.FC<ExchangeButtonProps> = () => {
     || currencyOutValue === 0
     || typeof currencyInValue === 'undefined'
     || typeof currencyOutValue === 'undefined'
+    || currencyIn === currencyOut
   ) {
     disableButton = true;
   }
@@ -72,7 +75,26 @@ const ExchangeButton: React.FC<ExchangeButtonProps> = () => {
         className={styles.button}
         variant="contained"
         disabled={disableButton}
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          if (operation === 'Sell' && currencyInValue && currencyOutValue) {
+            setBalance(
+              { currency: currencyIn, balance: balanceIn - currencyInValue },
+            );
+            setBalance(
+              { currency: currencyOut, balance: balanceOut + currencyOutValue },
+            );
+          } else if (
+            operation === 'Buy' && currencyOutValue && currencyInValue
+          ) {
+            setBalance(
+              { currency: currencyOut, balance: balanceOut - currencyOutValue },
+            );
+            setBalance(
+              { currency: currencyIn, balance: balanceIn + currencyInValue },
+            );
+          }
+          setOpen(true);
+        }}
       >
         {operation}
         {' '}
@@ -98,7 +120,7 @@ const ExchangeButton: React.FC<ExchangeButtonProps> = () => {
             <div className={styles.successExchange}>
               You exchanged
             </div>
-            <div className={styles.successExchange}>
+            <div className={styles.successAmountConfirmation}>
               {amountExchanged}
             </div>
           </Box>

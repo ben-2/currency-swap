@@ -83,6 +83,15 @@ HTMLInputElement> = useRef(null);
   ) {
     displayErrorMessage = true;
   }
+
+  let balanceParam = balance;
+  const splittedBalance = balanceParam.toString().split('.');
+  if (splittedBalance.length > 1) {
+    const decimals = splittedBalance[1];
+    balanceParam = parseFloat(
+      `${splittedBalance[0]}.${decimals.substring(0, 2)}`,
+    );
+  }
   return (
     <>
 
@@ -120,7 +129,7 @@ HTMLInputElement> = useRef(null);
           <div className={styles.balance}>
             Balance :
             {' '}
-            {balance.toString().replace('.', ',')}
+            {balanceParam.toString().replace('.', ',')}
           </div>
         </div>
         <div className={styles.amountInput}>
