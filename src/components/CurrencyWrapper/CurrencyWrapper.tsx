@@ -23,17 +23,24 @@ const CurrencyWrapper: React.FC<Props> = (props) => {
   } = props;
   const inputFocus: React.RefObject<
 HTMLInputElement> = useRef(null);
-  const globalState = useStoreState((state) => state);
+  const operation = useStoreState((state) => state.operation);
+  const currencyInValue = useStoreState((state) => state.currencyInValue);
+  const displayConversionIn = useStoreState(
+    (state) => state.displayConversionIn,
+  );
+  const displayConversionOut = useStoreState(
+    (state) => state.displayConversionOut,
+  );
+  const currencyInValueControlled = useStoreState(
+    (state) => state.currencyInValueControlled,
+  );
+  const currencyOutValue = useStoreState(
+    (state) => state.currencyOutValue,
+  );
+  const currencyOutValueControlled = useStoreState(
+    (state) => state.currencyOutValueControlled,
+  );
   const globalActions = useStoreActions((actions) => actions);
-  const {
-    operation,
-    currencyInValue,
-    displayConversionIn,
-    displayConversionOut,
-    currencyInValueControlled,
-    currencyOutValue,
-    currencyOutValueControlled,
-  } = globalState;
   const {
     setCurrencyInValue,
     setCurrencyOutValue,

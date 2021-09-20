@@ -68,26 +68,56 @@ export const store = createStore<StoreModel>({
       balance: 0,
     },
   ],
-  currencyInValueControlled: computed((state) => {
-    const currencyOutExchangeRate = state.accountsList
-      .filter(
-        (account) => account.currency === state.currencyOut,
-      )[0].exchangeRateInEur;
-    if (state.currencyOutValue) {
-      return state.currencyOutValue / currencyOutExchangeRate;
-    }
-    return undefined;
-  }),
-  currencyOutValueControlled: computed((state) => {
-    const currencyOutExchangeRate = state.accountsList
-      .filter(
-        (account) => account.currency === state.currencyOut,
-      )[0].exchangeRateInEur;
-    if (state.currencyInValue) {
-      return state.currencyInValue * currencyOutExchangeRate;
-    }
-    return undefined;
-  }),
+  currencyInValueControlled: computed(
+    [
+      (state) => state.currencyIn,
+      (state) => state.currencyOut,
+      (state) => state.currencyOutValue,
+      (state) => state.accountsList,
+    ],
+    (currencyIn, currencyOut, currencyOutValue, accountsList) => {
+      const currencyInExchangeRate = accountsList
+        .filter(
+          (account) => account.currency === currencyIn,
+        )[0].exchangeRateInEur;
+
+      const currencyOutExchangeRate = accountsList
+        .filter(
+          (account) => account.currency === currencyOut,
+        )[0].exchangeRateInEur;
+
+      if (currencyOutValue) {
+        return currencyOutValue
+        * (currencyInExchangeRate / currencyOutExchangeRate);
+      }
+      return undefined;
+    },
+  ),
+  currencyOutValueControlled: computed(
+    [
+      (state) => state.currencyIn,
+      (state) => state.currencyOut,
+      (state) => state.currencyInValue,
+      (state) => state.accountsList,
+    ],
+    (currencyIn, currencyOut, currencyInValue, accountsList) => {
+      const currencyInExchangeRate = accountsList
+        .filter(
+          (account) => account.currency === currencyIn,
+        )[0].exchangeRateInEur;
+
+      const currencyOutExchangeRate = accountsList
+        .filter(
+          (account) => account.currency === currencyOut,
+        )[0].exchangeRateInEur;
+
+      if (currencyInValue) {
+        return currencyInValue
+        * (currencyOutExchangeRate / currencyInExchangeRate);
+      }
+      return undefined;
+    },
+  ),
   setCurrencyIn: action((state, payload) => {
     state.currencyIn = payload;
   }),
