@@ -3,6 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import CurrencyFlag from 'react-currency-flags';
 import { CurrencyAccount } from '../../common/types/currency.interface';
 import styles from './Currency.module.css';
+import { useStoreState } from '../../store/hooks';
 
 type CurrencyProps = {
     currency: CurrencyAccount;
@@ -11,6 +12,10 @@ type CurrencyProps = {
 
 const Currency: React.FC<CurrencyProps> = (props) => {
   const { currency, currencyDescription } = props;
+  const currencyBalance = useStoreState(
+    (state) => state.accountsList
+      .filter((account) => account.currency === currency)[0].balance,
+  );
   return (
     <div
       className={styles.currencyWrapper}
@@ -25,8 +30,12 @@ const Currency: React.FC<CurrencyProps> = (props) => {
         </Avatar>
       </div>
       <div className={styles.currencyTextDescription}>
-        <div>
+        <div className={styles.currencyText}>
           {currency}
+          {' '}
+          ·
+          {' '}
+          {currencyBalance.toString().replace('.', ',')}
         </div>
         <div className={styles.currencyDescription}>
           {currencyDescription}

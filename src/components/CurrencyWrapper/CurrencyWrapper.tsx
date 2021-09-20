@@ -67,7 +67,7 @@ HTMLInputElement> = useRef(null);
           <div className={styles.balance}>
             Balance :
             {' '}
-            {balance}
+            {balance.toString().replace('.', ',')}
           </div>
         </div>
         <div className={styles.amountInput}>
