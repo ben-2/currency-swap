@@ -4,6 +4,7 @@ import CurrencyFlag from 'react-currency-flags';
 import { CurrencyAccount } from '../../common/types/currency.interface';
 import styles from './Currency.module.css';
 import { useStoreState } from '../../store/hooks';
+import { trimNumber } from '../../services/trimNumbers';
 
 type CurrencyProps = {
     currency: CurrencyAccount;
@@ -15,6 +16,9 @@ const Currency: React.FC<CurrencyProps> = (props) => {
     (state) => state.accountsList
       .filter((account) => account.currency === currency)[0],
   );
+
+  const balanceParam = trimNumber(currencyAccount.balance, 2);
+
   return (
     <div
       className={styles.currencyWrapper}
@@ -34,7 +38,7 @@ const Currency: React.FC<CurrencyProps> = (props) => {
           {' '}
           ·
           {' '}
-          {currencyAccount.balance.toString().replace('.', ',')}
+          {balanceParam.toString().replace('.', ',')}
         </div>
         <div className={styles.currencyDescription}>
           {currencyAccount.currencyDescription}

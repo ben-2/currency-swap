@@ -3,6 +3,7 @@ import './App.css';
 import BuySellToggle from './components/BuySellToggle';
 import CurrencyList from './components/CurrencyList';
 import CurrencyWrapper from './components/CurrencyWrapper';
+import ExchangeButton from './components/ExchangeButton';
 import Rate from './components/Rate';
 import RefreshRate from './components/RefreshRate';
 import Title from './components/Title';
@@ -41,6 +42,7 @@ const App: React.FC = () => {
               balance={currencyOutAccount.balance}
               setShowCurrencyList={setShowCurrencyList}
             />
+            <ExchangeButton />
           </>
         )}
     </div>

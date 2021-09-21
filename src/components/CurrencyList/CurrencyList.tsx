@@ -27,7 +27,6 @@ HTMLInputElement> = useRef(null);
   return (
     <div
       className={styles.currencyListWrapper}
-      data-testid="currency-list"
     >
       <div className={styles.currencyFilter}>
         <div
@@ -43,6 +42,8 @@ HTMLInputElement> = useRef(null);
             onChange={(e) => setFilter(e.target.value)}
             value={filter}
             ref={inputFocus}
+            aria-label="filter-currency-input"
+            data-testid="currency-list-filter"
           />
         </div>
         {filter !== ''
@@ -79,6 +80,7 @@ HTMLInputElement> = useRef(null);
             <Currency
               key={account.currency}
               currency={account.currency}
+              data-testid={`currency-list-${account.currency}`}
             />
           </div>
         ))}

@@ -1,0 +1,53 @@
+.exchangeButtonWrapper {
+    width: 97%;
+    position: fixed;
+    bottom: 10%;
+    z-index: 1000;
+}
+
+.button {
+    width: 94vw;
+    text-transform: none!important;
+    border-radius: 18px!important;
+}
+
+.modalRoot {
+    z-index: 9999!important;
+}
+
+.modalBox {
+    background-color: #ffffff;
+    margin: 6vw;
+    border-radius: 12px;
+    height: 200px;
+    position: fixed;
+    bottom: 10px;
+    width: 88%;
+}
+
+.successIcon {
+    width: 100%;
+    color: #0074D9;
+    text-align: center;
+    margin-top: 32px;
+    display: inline-block;
+}
+
+.successExchange {
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    font-weight: bold;
+    margin-top: 18px;
+    font-size: 14px;
+}
+
+.successAmountConfirmation {
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    font-weight: bold;
+    margin-top: 9px;
+    font-size: 14px;
+    color: #0074D9;
+}

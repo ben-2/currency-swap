@@ -16,8 +16,10 @@ describe('INITIALIZATION - As a user when I land on the app', () => {
         </QueryClientProvider>
       </StoreProvider>,
     );
-    const linkElement = screen.getByText(/Sell/i);
-    expect(linkElement).toBeInTheDocument();
+    const sellTextTitle = screen.getAllByText(/Sell/i)[0];
+    const sellTextButton = screen.getAllByText(/Sell/i)[1];
+    expect(sellTextTitle).toBeInTheDocument();
+    expect(sellTextButton).toBeInTheDocument();
   });
 
   test('of EUR currency', () => {
@@ -62,18 +64,26 @@ describe('SWITCH OPERATION - As a user when I switch the operation', () => {
       </StoreProvider>,
     );
 
-    const sellText = screen.getByText(/Sell/i);
-    expect(sellText).toBeInTheDocument();
+    let sellTextTitle = screen.getAllByText(/Sell/i)[0];
+    let sellTextButton = screen.getAllByText(/Sell/i)[1];
+    expect(sellTextTitle).toBeInTheDocument();
+    expect(sellTextButton).toBeInTheDocument();
 
     fireEvent.click(getByTestId('operation-toggle'));
-    const buyText = screen.getByText(/Buy/i);
-    expect(buyText).toBeInTheDocument();
+    let buyTextTitle = screen.getAllByText(/Buy/i)[0];
+    let buyTextButton = screen.getAllByText(/Buy/i)[1];
+    expect(buyTextTitle).toBeInTheDocument();
+    expect(buyTextButton).toBeInTheDocument();
 
     fireEvent.click(getByTestId('operation-toggle'));
-    expect(sellText).toBeInTheDocument();
+    [sellTextTitle, sellTextButton] = screen.getAllByText(/Sell/i);
+    expect(sellTextTitle).toBeInTheDocument();
+    expect(sellTextButton).toBeInTheDocument();
 
     fireEvent.click(getByTestId('operation-toggle'));
-    expect(buyText).toBeInTheDocument();
+    [buyTextTitle, buyTextButton] = screen.getAllByText(/Buy/i);
+    expect(buyTextTitle).toBeInTheDocument();
+    expect(buyTextButton).toBeInTheDocument();
   });
 });
 
@@ -106,5 +116,41 @@ describe('FOCUS - As a user when I click on the currency box', () => {
     fireEvent.click(currencyBox1);
     expect(input1).toHaveFocus();
     expect(input2).not.toHaveFocus();
+  });
+});
+
+describe('CHANGE CURRENCY - As a user when I select', () => {
+  test('GBP for the first entry I see it changed', () => {
+    const { getByTestId, getByLabelText } = render(
+      <StoreProvider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
+      </StoreProvider>,
+    );
+
+    const accountBox1 = getByTestId('account-box-1');
+
+    fireEvent.click(accountBox1);
+    const GBPCurrency = getByTestId('currency-flag-GBP');
+    fireEvent.click(GBPCurrency);
+
+    const GBPTextTitle = screen.getAllByText(/GBP/i)[0];
+    const GBPTextCurrency = screen.getAllByText(/GBP/i)[1];
+    const GBPTextButton = screen.getAllByText(/GBP/i)[2];
+    expect(GBPTextTitle).toBeInTheDocument();
+    expect(GBPTextCurrency).toBeInTheDocument();
+    expect(GBPTextButton).toBeInTheDocument();
+
+    const accountBox2 = getByTestId('account-box-2');
+    fireEvent.click(accountBox2);
+    const filterInput = getByTestId('currency-list-filter');
+    fireEvent.change(filterInput, { target: { value: 'EU' } });
+    const EURCurrency = getByTestId('currency-flag-EUR');
+    fireEvent.click(EURCurrency);
+    const EURTextCurrency = screen.getAllByText(/EUR/i)[0];
+    const EURTextButton = screen.getAllByText(/EUR/i)[1];
+    expect(EURTextCurrency).toBeInTheDocument();
+    expect(EURTextButton).toBeInTheDocument();
   });
 });

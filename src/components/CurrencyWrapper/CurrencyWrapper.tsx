@@ -4,6 +4,7 @@ import NumberFormat from 'react-number-format';
 import { CurrencyAccount } from '../../common/types/currency.interface';
 import styles from './CurrencyWrapper.module.css';
 import { useStoreActions, useStoreState } from '../../store/hooks';
+import { trimNumber } from '../../services/trimNumbers';
 
 interface Props {
   id: number;
@@ -83,6 +84,9 @@ HTMLInputElement> = useRef(null);
   ) {
     displayErrorMessage = true;
   }
+
+  const balanceParam = trimNumber(balance, 2);
+
   return (
     <>
 
@@ -100,11 +104,14 @@ HTMLInputElement> = useRef(null);
         aria-hidden
         data-testid={`currency-box-${id}`}
       >
-        <div className={styles.accountBox}>
+        <div
+          className={styles.accountBox}
+        >
           <div className={styles.currencyWrapper}>
             <div
               className={styles.currency}
               onClick={() => setShowCurrencyList(true)}
+              data-testid={`account-box-${id}`}
               aria-hidden
             >
               {exchangedCurrency}
@@ -120,7 +127,7 @@ HTMLInputElement> = useRef(null);
           <div className={styles.balance}>
             Balance :
             {' '}
-            {balance.toString().replace('.', ',')}
+            {balanceParam.toString().replace('.', ',')}
           </div>
         </div>
         <div className={styles.amountInput}>
@@ -138,7 +145,7 @@ HTMLInputElement> = useRef(null);
             placeholder="0"
             onValueChange={(values) => {
               const { floatValue } = values;
-              if (id === 1 && floatValue) {
+              if (id === 1) {
                 setDisplayConversionIn(false);
                 setDisplayConversionOut(true);
                 setCurrencyInValue(floatValue);

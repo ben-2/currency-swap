@@ -2,6 +2,7 @@ import React from 'react';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import styles from './Rate.module.css';
 import { useStoreState } from '../../store/hooks';
+import { trimNumber } from '../../services/trimNumbers';
 
 const Rate: React.FC = () => {
   const currencyIn = useStoreState((state) => state.currencyIn);
@@ -25,13 +26,8 @@ const Rate: React.FC = () => {
       )[0].symbol,
   );
 
-  let rate = currencyOutExchangeRate / currencyInExchangeRate;
+  const rate = trimNumber(currencyOutExchangeRate / currencyInExchangeRate, 10);
 
-  const splittedRate = rate.toString().split('.');
-  if (splittedRate.length > 1) {
-    const decimals = splittedRate[1];
-    rate = parseFloat(`${splittedRate[0]}.${decimals.substring(0, 10)}`);
-  }
   return (
     <div className={styles.rateWrapper}>
       <div className={styles.rateIcon}>
