@@ -129,10 +129,8 @@ describe('CHANGE CURRENCY - As a user when I select', () => {
       </StoreProvider>,
     );
 
-    const input1 = container.getElementsByTagName('input')[0];
-    const input2 = container.getElementsByTagName('input')[1];
-    const currencyBox1 = getByTestId('currency-box-1');
-    const currencyBox2 = getByTestId('currency-box-2');
+    const accountBox1 = getByTestId('account-box-1');
+    const accountBox2 = getByTestId('account-box-2');
 
     expect(input1).toHaveFocus();
     expect(input2).not.toHaveFocus();

@@ -4,6 +4,7 @@ import NumberFormat from 'react-number-format';
 import { CurrencyAccount } from '../../common/types/currency.interface';
 import styles from './CurrencyWrapper.module.css';
 import { useStoreActions, useStoreState } from '../../store/hooks';
+import { trimNumber } from '../../services/trimNumbers';
 
 interface Props {
   id: number;
@@ -84,14 +85,8 @@ HTMLInputElement> = useRef(null);
     displayErrorMessage = true;
   }
 
-  let balanceParam = balance;
-  const splittedBalance = balanceParam.toString().split('.');
-  if (splittedBalance.length > 1) {
-    const decimals = splittedBalance[1];
-    balanceParam = parseFloat(
-      `${splittedBalance[0]}.${decimals.substring(0, 2)}`,
-    );
-  }
+  const balanceParam = trimNumber(balance, 2);
+
   return (
     <>
 
@@ -109,7 +104,10 @@ HTMLInputElement> = useRef(null);
         aria-hidden
         data-testid={`currency-box-${id}`}
       >
-        <div className={styles.accountBox}>
+        <div
+          className={styles.accountBox}
+          data-testid={`account-box-${id}`}
+        >
           <div className={styles.currencyWrapper}>
             <div
               className={styles.currency}
