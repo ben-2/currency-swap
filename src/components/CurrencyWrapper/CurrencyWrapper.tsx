@@ -106,12 +106,12 @@ HTMLInputElement> = useRef(null);
       >
         <div
           className={styles.accountBox}
-          data-testid={`account-box-${id}`}
         >
           <div className={styles.currencyWrapper}>
             <div
               className={styles.currency}
               onClick={() => setShowCurrencyList(true)}
+              data-testid={`account-box-${id}`}
               aria-hidden
             >
               {exchangedCurrency}

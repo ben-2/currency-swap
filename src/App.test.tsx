@@ -121,7 +121,7 @@ describe('FOCUS - As a user when I click on the currency box', () => {
 
 describe('CHANGE CURRENCY - As a user when I select', () => {
   test('GBP for the first entry I see it changed', () => {
-    const { container, getByTestId } = render(
+    const { getByTestId, getByLabelText } = render(
       <StoreProvider store={store}>
         <QueryClientProvider client={queryClient}>
           <App />
@@ -130,21 +130,27 @@ describe('CHANGE CURRENCY - As a user when I select', () => {
     );
 
     const accountBox1 = getByTestId('account-box-1');
-    const accountBox2 = getByTestId('account-box-2');
 
-    expect(input1).toHaveFocus();
-    expect(input2).not.toHaveFocus();
-    fireEvent.click(currencyBox1);
-    expect(input1).toHaveFocus();
-    expect(input2).not.toHaveFocus();
-    fireEvent.click(currencyBox2);
-    expect(input1).not.toHaveFocus();
-    expect(input2).toHaveFocus();
-    fireEvent.click(currencyBox2);
-    expect(input1).not.toHaveFocus();
-    expect(input2).toHaveFocus();
-    fireEvent.click(currencyBox1);
-    expect(input1).toHaveFocus();
-    expect(input2).not.toHaveFocus();
+    fireEvent.click(accountBox1);
+    const GBPCurrency = getByTestId('currency-flag-GBP');
+    fireEvent.click(GBPCurrency);
+
+    const GBPTextTitle = screen.getAllByText(/GBP/i)[0];
+    const GBPTextCurrency = screen.getAllByText(/GBP/i)[1];
+    const GBPTextButton = screen.getAllByText(/GBP/i)[2];
+    expect(GBPTextTitle).toBeInTheDocument();
+    expect(GBPTextCurrency).toBeInTheDocument();
+    expect(GBPTextButton).toBeInTheDocument();
+
+    const accountBox2 = getByTestId('account-box-2');
+    fireEvent.click(accountBox2);
+    const filterInput = getByTestId('currency-list-filter');
+    fireEvent.change(filterInput, { target: { value: 'EU' } });
+    const EURCurrency = getByTestId('currency-flag-EUR');
+    fireEvent.click(EURCurrency);
+    const EURTextCurrency = screen.getAllByText(/EUR/i)[0];
+    const EURTextButton = screen.getAllByText(/EUR/i)[1];
+    expect(EURTextCurrency).toBeInTheDocument();
+    expect(EURTextButton).toBeInTheDocument();
   });
 });
